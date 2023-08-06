@@ -1,7 +1,6 @@
 package com.demo.blog.entities;
 
-import com.demo.blog.payloads.CategoryDto;
-import com.demo.blog.payloads.UserDto;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,7 +27,8 @@ public class Post {
     @ManyToOne
     private User user;
 
-    @OneToMany (mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Comment> commentList;
-
 }
+
+
