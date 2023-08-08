@@ -15,7 +15,11 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -91,8 +95,11 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<PostDto> getAllPost() {
-        List<Post> postList = this.postRepo.findAll();
+    public List<PostDto> getAllPost(Integer PageNumber, Integer PageSize) {
+
+        Pageable pageable =  PageRequest.of(PageNumber, PageSize );
+        Page<Post> page = this.postRepo.findAll(pageable);
+        List<Post> postList = page.getContent();
         List<PostDto> postDtoList = new ArrayList<PostDto>();
         for (Post temp : postList) {
             PostDto postDto  = this.modelMapper.map(temp, PostDto.class);
