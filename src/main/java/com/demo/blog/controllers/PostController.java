@@ -36,8 +36,9 @@ public class PostController {
 
     public ResponseEntity<List<PostDto>> getAllPosts(
             @RequestParam (value="pageNumber", defaultValue = "1", required = false) Integer pageNumber,
-            @RequestParam (value = "pageSize", defaultValue = "5", required = false) Integer pageSize) {
-        return ResponseEntity.ok(this.postService.getAllPost(pageNumber, pageSize));
+            @RequestParam (value = "pageSize", defaultValue = "5", required = false) Integer pageSize,
+            @RequestParam (value = "sortBy", defaultValue = "PostId", required = false) String sort) {
+        return ResponseEntity.ok(this.postService.getAllPost(pageNumber, pageSize, sort));
     }
 
     @GetMapping("/posts/{postId}")

@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -95,9 +96,9 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<PostDto> getAllPost(Integer PageNumber, Integer PageSize) {
+    public List<PostDto> getAllPost(Integer PageNumber, Integer PageSize, String sort) {
 
-        Pageable pageable =  PageRequest.of(PageNumber, PageSize );
+        Pageable pageable =  PageRequest.of(PageNumber, PageSize, Sort.by(sort));
         Page<Post> page = this.postRepo.findAll(pageable);
         List<Post> postList = page.getContent();
         List<PostDto> postDtoList = new ArrayList<PostDto>();
